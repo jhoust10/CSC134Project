@@ -15,16 +15,19 @@ int main ()
 		clockSpeed_processor,
 		numberOf_cores;
 	
-	string Res;
-	
 	double PERFORMANCE_SCORE; 
 	
 	//constants to hold the menu choice
-	const int RES_ONE = 1,
+	const int Res_One = 1,
 		  	  RES_TWO = 2, 
 		      RES_THREE = 3, 
 		      RES_FOUR = 4;
-				 
+	
+	string resolution,
+			quality;
+	
+	
+		   	 
 	//This get user's clock speed speed
 	cout<<"Please enter the clock speed <in Megahertz> of your graphics card: ";
 	cin>>clockSpeed_graphics;
@@ -34,7 +37,7 @@ int main ()
 		return 0;}
 	 
 	//This gets the user's processor speed
-	cout<<"Please enter the clock speed <in Megahertz> of your processor:";
+	cout<<"Please enter the clock speed <in Megahertz> of your processor: ";
 	cin>>clockSpeed_processor; 
 		if (clockSpeed_processor <= 0)
 			{
@@ -42,7 +45,7 @@ int main ()
 			return 0;}
 		
 	//This gets the user's number of cores
-	cout<<"Please enter the number of cores of your processor:";
+	cout<<"Please enter the number of cores of your processor: ";
 		cin>>numberOf_cores;
 		if (numberOf_cores <= 0)
 			{
@@ -58,33 +61,63 @@ int main ()
 	<<"Please select from the options above:";
 	cin>>choice;
 	
-	//Adding multiplier value for resolution choice
-	if (choice =1)
-		choice *=1;
-	else if (choice =2)
-		choice *=.75;
-	else if (choice = 3)
-		choice *=.55;
-	else if(choice = 4)
-		choice *=.35;
+	//Adding multiplier value for resolution choice and assigning resolution value
+	if (choice ==1)
+		{
+		choice =1;
+		resolution= "1280 x 720";
+	}
+	else if (choice ==2)
+		{
+		
+		choice =.75;
+		resolution="1920 x 1080";
+	}
+	else if (choice == 3)
+		{
+		choice =.55;
+		resolution="2560 x 1440";
+	}
+	else if(choice == 4)
+	{
+		choice =.35;
+		resolution="3840 x 2160;";
+	}
 	else
 		cout<<"invalid Resolution menu choice. Program will terminate."<<endl; 
 	
 	//Caluculating performance score
-	PERFORMANCE_SCORE = ((5*clockSpeed_graphics)+(4*clockSpeed_processor))*choice;
+	PERFORMANCE_SCORE = ((5*clockSpeed_graphics)+(numberOf_cores*clockSpeed_processor))*choice;
 	
 	//processing recommendation based on perfomance score 
 	if (PERFORMANCE_SCORE>1700)
-		Res = "Ultra";
-	else if (PERFORMANCE_SCORE<1500&& PERFORMANCE_SCORE<1700)
-		Res = "High";
-	else if (PERFORMANCE_SCORE<1300&&PERFORMANCE_SCORE<1500)	
-		Res= "Medium";
-	else if (PERFORMANCE_SCORE<1100&&PERFORMANCE_SCORE<13000)
-		Res= "Low";
-	else if (PERFORMANCE_SCORE<=1100)
-		Res= "unable to Play";
+		{quality = "Ultra";
+	}
+	else if (PERFORMANCE_SCORE>1500&& PERFORMANCE_SCORE<=1700)
+		{quality = "High";
+	}
+	else if (PERFORMANCE_SCORE>1300&&PERFORMANCE_SCORE<=1500)	
+		{quality= "Medium";
+	}
+	else if (PERFORMANCE_SCORE>1100&&PERFORMANCE_SCORE<=13000)
+		{quality= "Low";
+	}
+	else 
+		{quality= "unable to Play";
+	}
+	//output display
+	cout<<"\n\nComputer Hardware Graphic Quality Recommendation Tool\n\n";
+	cout<<"GPU Clock Speed: "<<clockSpeed_graphics<<" MHz\n";
+	cout<<"CPU Clock SPeed: "<<clockSpeed_processor<< " MHz\n";
+	cout<<"Number of cores: "<<numberOf_cores<<endl;
+	cout<<"Monitor Resolution: "<< resolution<<endl; 
 	
+	//setpreciosn for performance score
+	cout<<fixed<<showpoint<<setprecision(2);
+	
+	//rest of menu display
+	cout<<"Performance Score: "<<PERFORMANCE_SCORE<<endl; 
+	cout<<"Recommended Graphics Quality: "<<quality<<endl;
 	
 	return 0; 
 	
