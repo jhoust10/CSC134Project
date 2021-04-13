@@ -181,7 +181,7 @@ if(inputFile)
 else 
 {
 	cout<<"Error reading performance scores";
-	return -2;
+	return ;
 }
 
 inputFile.close(); //Closing file
