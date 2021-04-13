@@ -4,35 +4,42 @@ hardware capabilities and reccomend graphic settings*/
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <fstream>
 
 using namespace std; 
 
 int main ()
 {
-	//to save user info and hold menu choice
-	int numOfcomp,  //number of computers
-		choice,
-		clockSpeed_graphics,
-		clockSpeed_processor,
-		numberOf_cores,
-		multiplier;
+	ofstream outputFile;
+	outputFile.open ("scores.txt");
 	
-	double PERFORMANCE_SCORE; 
+	
+	//to save user info and hold menu choice
+int numOfcomp,  //number of computers
+	choice,
+	clockSpeed_graphics,
+	clockSpeed_processor,
+	numberOf_cores,
+	multiplier;
+	
+double PERFORMANCE_SCORE; 
 	
 	//constants to hold the menu choice
-	const int Res_One = 1,
-		  	  RES_TWO = 2, 
-		      RES_THREE = 3, 
-		      RES_FOUR = 4;
+const int Res_One = 1,
+	RES_TWO = 2, 
+	RES_THREE = 3, 
+	RES_FOUR = 4;
 	
-	string resolution,
-			quality,
-			title="Computer Hardware Graphics Quality Reommendation Tool";
+string resolution,
+quality,
+title="Computer Hardware Graphics Quality Reommendation Tool";
 	
-	//This request the user for the number of computers.
-	cout<<"How many computers are being processed?:"; 
-	cin>>numOfcomp; 
-	//loop validation for number of computers
+//This request the user for the number of computers.
+cout<<"How many computers are being processed?:"; 
+cin>>numOfcomp; 
+
+
+//loop validation for number of computers
 	while (numOfcomp <1)
 		{
 			cout<<"Invalid number of computers. please enter at least 1 computer:";
@@ -116,6 +123,9 @@ int main ()
 	//Caluculating performance score
 	PERFORMANCE_SCORE = ((5*clockSpeed_graphics)+(numberOf_cores*clockSpeed_processor))*multiplier;
 	
+	//Storing performance score to display later
+	outputFile <<PERFORMANCE_SCORE; 
+	
 	//processing recommendation based on perfomance score 
 	if (PERFORMANCE_SCORE>17000)
 		quality = "Ultra";
@@ -147,6 +157,34 @@ int main ()
 	cout<<"Recommended Graphics Quality: "<<quality<<endl;
 
 } //end of NumOfcomp loop
+
+//Opening score.txt to read highest/lowest performance scores
+ifstream inputFile;
+
+inputFile.open ("scores.txt");
+
+//Validating file opened
+;
+if(inputFile)
+{
+		int PERFORMANCE_SCORE,
+			number,
+			largest=0,
+			lowest=0;
+			
+	while(inputFile>>PERFORMANCE_SCORE)
+	{
+		cout<<number<<endl;
+	}
+	
+}
+else 
+{
+	cout<<"Error reading performance scores";
+	return -2;
+}
+
+inputFile.close(); //Closing file
 
 
 return 0; 
